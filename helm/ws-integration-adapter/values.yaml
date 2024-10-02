@@ -1,0 +1,54 @@
+replicaCount: 1
+
+image:
+  repository: harbor.bft.local/smev/ws-integration-adapter
+  tag: "2.7.1"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 7590
+
+resources:
+  limits:
+    cpu: 600m
+    memory: 2500Mi
+  requests:
+    cpu: 200m
+    memory: 900Mi
+
+env:
+  COMPANY: "Государственное учреждение пенсионный фонд Российской Федерации"
+  CRYPTO: "CF205-G0000-00EH4-G463D-4KDKD"
+  LOGGING_LEVEL_ROOT: "INFO"
+  TZ: "Europe/Moscow"
+  incoming_attachments_path: "/basket/data/4.0.3/base-storage/out"
+  inner_integration_adapter_url: "http://inner-integration-adapter:7577"
+  kafka_servers: "172.18.32.248:9092"
+  send_original_messages: "true"
+  smev_http_adapter_url: "http://smev-http-adapter:7576"
+  storage-tool: "postgresql"
+  storage_adapter_url: "jdbc:postgresql://172.18.41.80:5441/uii_test2_pg_smev_adapter?user=uii_test2_pg_smev_adapter&password=Pass123"
+  storage_configuration_url: "jdbc:postgresql://172.18.41.80:5441/uii_test2_pg_smev_adapter?user=uii_test2_pg_smev_adapter&password=Pass123"
+  storage_path: "/basket"
+  storage_type: "postgresql"
+  version: "4.0.3"
+
+volumeMounts:
+  - name: smev-nfs-key
+    mountPath: /mnt
+  - name: smev-nfs-basket
+    mountPath: /basket
+  - name: file-integration-adapter
+    mountPath: /file-integration-adapter
+
+volumes:
+  - name: smev-nfs-key
+    persistentVolumeClaim:
+      claimName: smev-nfs-key
+  - name: smev-nfs-basket
+    persistentVolumeClaim:
+      claimName: smev-nfs-basket
+  - name: file-integration-adapter
+    persistentVolumeClaim:
+      claimName: file-integration-adapter
