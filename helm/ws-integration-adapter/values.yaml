@@ -28,8 +28,6 @@ env:
   send_original_messages: "true"
   smev_http_adapter_url: "http://smev-http-adapter:7576"
   storage-tool: "postgresql"
-  storage_adapter_url: "jdbc:postgresql://172.18.41.80:5441/uii_test2_pg_smev_adapter?user=uii_test2_pg_smev_adapter&password=Pass123"
-  storage_configuration_url: "jdbc:postgresql://172.18.41.80:5441/uii_test2_pg_smev_adapter?user=uii_test2_pg_smev_adapter&password=Pass123"
   storage_path: "/basket"
   storage_type: "postgresql"
   version: "4.0.3"
